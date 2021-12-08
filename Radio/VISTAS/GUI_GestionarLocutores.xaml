@@ -1,0 +1,26 @@
+﻿<Window x:Class="Radio.VISTAS.GUI_GestionarLocutores"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Radio.VISTAS"
+        mc:Ignorable="d"
+        Title="GUI_GestionarLocutores" Height="300" Width="664" ResizeMode="NoResize">
+    <Grid>
+        <Label  Content="Locutores: " HorizontalAlignment="Left" Margin="24,20,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
+        <Label  Content="Locutor Seleccionado: " HorizontalAlignment="Left" Margin="433,20,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
+        <TextBox x:Name="tbModificarLocutor" HorizontalAlignment="Left" Margin="433,68,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="190" FontSize="15" FontWeight="Bold"/>
+        <Button Content="Modificar" HorizontalAlignment="Left" Margin="433,165,0,0" VerticalAlignment="Top" FontSize="12" Width="88" Background="#FF009900" Foreground="White" Click="btnModificarLocutor"/>
+        <Button Content="Eliminar" HorizontalAlignment="Left" Margin="535,165,0,0" VerticalAlignment="Top" FontSize="12" Width="88" Background="#FF4E8CC9" Foreground="White" Click="btnEliminarLocutor"/>
+        <DataGrid x:Name="dg_Locutores" SelectionMode="Single" IsReadOnly="true" AutoGenerateColumns="False" Margin="30,68,243,86" SelectionChanged="dg_locutorSeleccionado" >
+            <DataGrid.Columns>
+                <DataGridTextColumn  MinWidth="30" MaxWidth="30" Header="#" Binding="{Binding Numero}"/>
+                <DataGridTextColumn MinWidth="153" MaxWidth="153" Header="Locutor" Binding="{Binding NombreLocutor}"/>
+                <DataGridTextColumn MinWidth="167" MaxWidth="167" Header="Programa" Binding="{Binding NombrePrograma}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Cerrar Ventana" HorizontalAlignment="Left" Margin="535,225,0,0" VerticalAlignment="Top" FontSize="12" Width="88" Background="#FFB8231C" Foreground="White" Click="btnCerrarVentana"/>
+        <TextBox x:Name="tbBuscador" HorizontalAlignment="Left" Margin="300,45,0,0" VerticalAlignment="Top" Width="105" FontSize="12" FontWeight="Bold" Height="18" TextChanged="tbBuscarLocutor"/>
+        <Label  Content="Buscar: " HorizontalAlignment="Left" Margin="249,40,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold" Height="26"/>
+    </Grid>
+</Window>

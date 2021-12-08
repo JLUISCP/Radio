@@ -14,10 +14,16 @@ namespace Radio.VISTAS
 
         private void btn_Programas_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            GUI_VisualizarProgramas visualizarPrograma = new GUI_VisualizarProgramas();
+            visualizarPrograma.ShowDialog();
+        }
+        private void btn_patron_Click(object sender, RoutedEventArgs e)
+        {
+            GUI_VisualizarPatrones visualizarPatrones = new GUI_VisualizarPatrones();
+            visualizarPatrones.ShowDialog();
         }
 
-        private void btn_Programacion_Click(object sender, RoutedEventArgs e)
+            private void btn_Programacion_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Home" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
     <Grid>
-        <Button x:Name="btn_Programas" HorizontalAlignment="Left" Margin="50,157,0,0" VerticalAlignment="Top" Width="120" Height="120" Click="btn_Programas_Click">
+        <Button x:Name="btn_Programas" HorizontalAlignment="Left" Margin="126,240,0,0" VerticalAlignment="Top" Width="120" Height="120" Click="btn_Programas_Click">
             <StackPanel>
                 <Image Source="../RECURSOS/programas.png" Height="54" Width="71"/>
                 <TextBlock FontStretch="Condensed" LineStackingStrategy="BlockLineHeight" TextWrapping="Wrap" TextAlignment="Center">
@@ -15,7 +15,17 @@
                 </TextBlock>
             </StackPanel>
         </Button>
-        <Button x:Name="btn_Programacion" HorizontalAlignment="Left" Margin="193,157,0,0" VerticalAlignment="Top" Width="120" Height="120" Click="btn_Programacion_Click">
+
+        <Button x:Name="btn_patrones" HorizontalAlignment="Left" Margin="126,80,0,0" VerticalAlignment="Top" Width="120" Height="120" Click="btn_patron_Click">
+            <StackPanel>
+                <Image Source="../RECURSOS/patron.png" Height="54" Width="71"/>
+                <TextBlock FontStretch="Condensed" LineStackingStrategy="BlockLineHeight" TextWrapping="Wrap" TextAlignment="Center">
+                    Patrones
+                </TextBlock>
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="btn_Programacion" HorizontalAlignment="Left" Margin="321,240,0,0" VerticalAlignment="Top" Width="120" Height="120" Click="btn_Programacion_Click">
             <StackPanel>
                 <Image Source="../RECURSOS/programacion.png" Height="54" Width="71"/>
                 <TextBlock FontStretch="Condensed" LineStackingStrategy="BlockLineHeight" TextWrapping="Wrap" TextAlignment="Center" Width="90">
@@ -23,7 +33,7 @@
                 </TextBlock>
             </StackPanel>
         </Button>
-        <Button x:Name="btn_Cantantes" HorizontalAlignment="Left" Margin="485,157,0,0" VerticalAlignment="Top" Width="120" Height="120" Click="btn_Cantantes_Click">
+        <Button x:Name="btn_Cantantes" HorizontalAlignment="Left" Margin="516,80,0,0" VerticalAlignment="Top" Width="120" Height="120" Click="btn_Cantantes_Click">
             <StackPanel>
                 <Image Source="../RECURSOS/cantantes.png" Height="54" Width="71"/>
                 <TextBlock FontStretch="Condensed" LineStackingStrategy="BlockLineHeight" TextWrapping="Wrap" TextAlignment="Center">
@@ -31,7 +41,7 @@
                 </TextBlock>
             </StackPanel>
         </Button>
-        <Button x:Name="btn_Canciones" HorizontalAlignment="Left" Margin="340,157,0,0" VerticalAlignment="Top" Width="120" Height="120" Click="btn_Canciones_Click">
+        <Button x:Name="btn_Canciones" HorizontalAlignment="Left" Margin="321,80,0,0" VerticalAlignment="Top" Width="120" Height="120" Click="btn_Canciones_Click">
             <StackPanel>
                 <Image Source="../RECURSOS/canciones.png" Height="54" Width="71"/>
                 <TextBlock FontStretch="Condensed" LineStackingStrategy="BlockLineHeight" TextWrapping="Wrap" TextAlignment="Center">
@@ -39,7 +49,7 @@
                 </TextBlock>
             </StackPanel>
         </Button>
-        <Button x:Name="btn_Reportes" Margin="630,157,50,0" VerticalAlignment="Top" Height="120" Click="btn_Reportes_Click">
+        <Button x:Name="btn_Reportes" Margin="516,240,164,0" VerticalAlignment="Top" Height="120" Click="btn_Reportes_Click">
             <StackPanel>
                 <Image Source="../RECURSOS/reportes.png" Height="54" Width="71"/>
                 <TextBlock FontStretch="Condensed" LineStackingStrategy="BlockLineHeight" TextWrapping="Wrap" TextAlignment="Center">

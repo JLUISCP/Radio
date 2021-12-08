@@ -67,15 +67,55 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MODELO\DAO\DAOCanciones.cs" />
+    <Compile Include="MODELO\DAO\DAOCategoria.cs" />
+    <Compile Include="MODELO\DAO\DAODiasOperacion.cs" />
+    <Compile Include="MODELO\DAO\DAOGenero.cs" />
+    <Compile Include="MODELO\DAO\DAOLineaPatron.cs" />
+    <Compile Include="MODELO\DAO\DAOLocutor.cs" />
+    <Compile Include="MODELO\DAO\DAOPatron.cs" />
+    <Compile Include="MODELO\DAO\DAOPrograma.cs" />
+    <Compile Include="MODELO\DAO\DAOProgramaPatron.cs" />
+    <Compile Include="MODELO\DAO\DAORadio.cs" />
     <Compile Include="MODELO\DAO\LoginDAO.cs" />
     <Compile Include="MODELO\DAO\RolDAO.cs" />
     <Compile Include="MODELO\DAO\UsuarioDAO.cs" />
     <Compile Include="MODELO\DB\ConexionBD.cs" />
+    <Compile Include="MODELO\POCO\Cancion.cs" />
+    <Compile Include="MODELO\POCO\Categoria.cs" />
+    <Compile Include="MODELO\POCO\DiasOperacion.cs" />
+    <Compile Include="MODELO\POCO\Genero.cs" />
+    <Compile Include="MODELO\POCO\LineaPatron.cs" />
+    <Compile Include="MODELO\POCO\Locutor.cs" />
+    <Compile Include="MODELO\POCO\MusicaDiaPatron.cs" />
+    <Compile Include="MODELO\POCO\Patron.cs" />
+    <Compile Include="MODELO\POCO\Programa.cs" />
+    <Compile Include="MODELO\POCO\ProgramaPatron.cs" />
+    <Compile Include="MODELO\POCO\RadioPrograma.cs" />
     <Compile Include="MODELO\POCO\Rol.cs" />
     <Compile Include="MODELO\POCO\Usuario.cs" />
     <Compile Include="VISTAS\CRUDUsuario.xaml.cs">
       <DependentUpon>CRUDUsuario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VISTAS\GUI_GestionarLocutores.xaml.cs">
+      <DependentUpon>GUI_GestionarLocutores.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VISTAS\GUI_RegistrarModificarPatron.xaml.cs">
+      <DependentUpon>GUI_RegistrarModificarPatron.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VISTAS\GUI_RegistrarModificarPrograma.xaml.cs">
+      <DependentUpon>GUI_RegistrarModificarPrograma.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VISTAS\GUI_VisualizarPatron.xaml.cs">
+      <DependentUpon>GUI_VisualizarPatron.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VISTAS\GUI_VisualizarPatrones.xaml.cs">
+      <DependentUpon>GUI_VisualizarPatrones.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VISTAS\GUI_VisualizarProgramas.xaml.cs">
+      <DependentUpon>GUI_VisualizarProgramas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VISTAS\InterfacePatronPrograma.cs" />
     <Compile Include="VISTAS\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -121,6 +161,30 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VISTAS\GUI_GestionarLocutores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VISTAS\GUI_RegistrarModificarPatron.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VISTAS\GUI_RegistrarModificarPrograma.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VISTAS\GUI_VisualizarPatron.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VISTAS\GUI_VisualizarPatrones.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VISTAS\GUI_VisualizarProgramas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VISTAS\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,6 +202,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="RECURSOS\reportes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RECURSOS\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RECURSOS\Patron.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.3.0\build\MaterialDesignThemes.targets')" />

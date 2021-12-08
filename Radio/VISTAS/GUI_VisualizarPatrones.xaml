@@ -1,0 +1,27 @@
+﻿<Window x:Class="Radio.VISTAS.GUI_VisualizarPatrones"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Radio.VISTAS"
+        mc:Ignorable="d"
+        Title="Lista de Patrones" Height="550" Width="568" ResizeMode="NoResize">
+    <Grid Margin="0,0,4,0">
+        <Label Content="Buscar: " HorizontalAlignment="Left" Margin="295,74,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold" Height="32"/>
+        <TextBox x:Name="tbBuscador" HorizontalAlignment="Left" Margin="368,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" FontSize="17" FontWeight="Bold"/>
+
+        <DataGrid x:Name="dg_Patrones" SelectionMode="Single" IsReadOnly="true" AutoGenerateColumns="False" Margin="29,115,25,78" >
+            <DataGrid.Columns>
+                <DataGridTextColumn MinWidth="100" MaxWidth="100" Header="Clave" Binding="{Binding IdPatron}"/>
+                <DataGridTextColumn MinWidth="200" MaxWidth="200" Header="Nombre" Binding="{Binding NombrePatron}"/>
+                <DataGridTextColumn MinWidth="150" MaxWidth="150" Header="Radio" Binding="{Binding NombreRadio}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="Eliminar" HorizontalAlignment="Left" Margin="423,460,0,0" VerticalAlignment="Top" FontSize="17" Width="100" Background="#FFCC0000" Foreground="White" Click="btnEliminarPatron"/>
+        <Button Content="Modificar" HorizontalAlignment="Left" Margin="292,460,0,0" VerticalAlignment="Top" FontSize="17" Width="100" Background="#FFFF6600" Foreground="White" Click="btnModificarPatron" />
+        <Button Content="Registrar" HorizontalAlignment="Left" Margin="167,460,0,0" VerticalAlignment="Top" Width="100" FontSize="17" Background="#FF009900" Foreground="White" Click="btnRegistarPatron" />
+        <Button Content="Visualizar" HorizontalAlignment="Left" Margin="32,460,0,0" VerticalAlignment="Top" Width="100" FontSize="17" Background="#3498DB" Foreground="White" Click="btnVisualizarPatron" />
+        <Label Content="Patrones Musicales" HorizontalAlignment="Left" Margin="32,12,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+    </Grid>
+</Window>
