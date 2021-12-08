@@ -1,0 +1,71 @@
+﻿<Window x:Class="Radio.VISTAS.GUI_Canciones"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Radio.VISTAS"
+        mc:Ignorable="d"
+        Title="GUI_Canciones" Height="560" Width="1030" ResizeMode="NoResize">
+    <Grid Background="#FFBEBEBE">
+        <Label Content="Datos Generales: Canciones" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="13" FontFamily="Roboto" Opacity="0.7" Height="23" Width="229" FontWeight="ExtraBlack" Foreground="Black"/>
+        <Button x:Name="bt_Categorias" Content="Más" HorizontalAlignment="Left" Margin="245,110,0,0" VerticalAlignment="Top" Click="bt_Categorias_Click"/>
+        <Label Content="Clave:" HorizontalAlignment="Left" Margin="41,43,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
+        <Label Content="Titulo:" HorizontalAlignment="Left" Margin="287,47,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
+        <Label Content="Cantante:" HorizontalAlignment="Left" Margin="655,47,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
+        <Label Content="Categoría:" HorizontalAlignment="Left" Margin="41,100,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
+        <Label Content="Género:" HorizontalAlignment="Left" Margin="307,101,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
+        <Label Content="Prioridad:" HorizontalAlignment="Left" Margin="667,101,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
+        <Label Content="Fecha Alta:" HorizontalAlignment="Left" Margin="41,162,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
+        <Label Content="Fecha Modificación:" HorizontalAlignment="Left" Margin="335,162,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="17"/>
+        <Label Content="Comentarios:" HorizontalAlignment="Left" Margin="41,212,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
+        <Label Content="Observación:" HorizontalAlignment="Left" Margin="41,0,0,0" VerticalAlignment="Center" FontSize="17" FontWeight="Bold"/>
+        <TextBox x:Name="tb_clave" HorizontalAlignment="Left" Margin="103,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="137" FontSize="17" SelectionChanged="tb_claveCambio"/>
+        <TextBox x:Name="tb_titulo" HorizontalAlignment="Left" Margin="354,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="269" FontSize="17" SelectionChanged="tb_tituloCambio"/>
+        <TextBox x:Name="tb_categoria" HorizontalAlignment="Left" Margin="146,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" FontSize="17" TextChanged="bt_categoria_tch" LostFocus="bt_categoria_LF"/>
+        <TextBox x:Name="tb_genero" HorizontalAlignment="Left" Margin="384,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="17" TextChanged="tb_genero_tch" LostFocus="tb_genero_LF"/>
+        <Button x:Name="bt_Generos" Content="Más" HorizontalAlignment="Left" Margin="509,110,0,0" VerticalAlignment="Top" Click="bt_Generos_Click"/>
+        <ComboBox x:Name="cb_prioridad" HorizontalAlignment="Left" Margin="761,106,0,0" VerticalAlignment="Top" Width="60" SelectionChanged="cb_prioridadCambio"/>
+        <DatePicker x:Name="dp_fechaAlta" HorizontalAlignment="Left" Margin="146,158,0,0" VerticalAlignment="Top" FontSize="22" Width="153" FontWeight="ExtraBlack" IsEnabled="False"/>
+        <DatePicker x:Name="dp_fechaModificacion" HorizontalAlignment="Left" Margin="509,158,0,0" VerticalAlignment="Top" FontSize="22" Width="155" IsEnabled="False" FontWeight="ExtraBlack"/>
+        <DataGrid x:Name="dg_canciones" Margin="27,349,27,27" IsReadOnly="True" FontWeight="Bold" FontSize="14" SelectionChanged="dg_cancionesSeleccion">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Clave" Binding= "{Binding CAN_CLAVE1}" Width="60"/>
+                <DataGridTextColumn Header="Titulo" Binding= "{Binding CAN_TITULO1}" Width="465"/>
+                <DataGridTextColumn Header="Cantante" Binding= "{Binding CNT_NOMBRE1}" Width="213"/>
+                <DataGridTextColumn Header="Género" Binding= "{Binding GNR_NOMBRE1}" Width="125"/>
+                <DataGridTextColumn Header="Categoría" Binding= "{Binding CAT_NOMBRE1}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox x:Name="tb_comentarios" HorizontalAlignment="Left" Margin="162,216,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" FontSize="17" SelectionChanged="tb_comentariosCambio"/>
+        <TextBox x:Name="tb_observacion" HorizontalAlignment="Left" Margin="162,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="456" FontSize="17" SelectionChanged="tb_observacionCambio"/>
+        <Button x:Name="bt_eliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="903,317,0,0" VerticalAlignment="Top" FontSize="17" Width="100" Background="#FFCC0000" Foreground="White" Click="bt_eliminar_Click"/>
+        <Button x:Name="bt_modificar" Content="Modificar" HorizontalAlignment="Left" Margin="798,317,0,0" VerticalAlignment="Top" FontSize="17" Width="100" Background="#FFFF6600" Foreground="White" Click="bt_modificar_Click"/>
+        <Button x:Name="bt_registrar" Content="Registrar" HorizontalAlignment="Left" Margin="693,317,0,0" VerticalAlignment="Top" Width="100" FontSize="17" Background="#FF009900" Foreground="White" Click="bt_registrar_Click"/>
+        <Button x:Name="bt_limpiarCampos" Content="Limpiar Campos" HorizontalAlignment="Left" Margin="758,280,0,0" VerticalAlignment="Top" FontSize="17" Width="180" Background="#FF7FF67F" Click="bt_limpiarCampos_Click"/>
+        <Label Content="Días Permitidos" HorizontalAlignment="Left" Margin="650,202,0,0" VerticalAlignment="Top" FontSize="8" Height="20" Width="64"/>
+        <CheckBox x:Name="chb_lunes" Content="L" HorizontalAlignment="Left" Margin="655,223,0,0" VerticalAlignment="Top" FontSize="17"/>
+        <CheckBox x:Name="chb_martes" Content="M" HorizontalAlignment="Left" Margin="698,223,0,0" VerticalAlignment="Top" FontSize="17"/>
+        <CheckBox x:Name="chb_jueves" Content="J" HorizontalAlignment="Left" Margin="798,223,0,0" VerticalAlignment="Top" FontSize="17"/>
+        <CheckBox x:Name="chb_sabado" Content="S" HorizontalAlignment="Left" Margin="655,250,0,0" VerticalAlignment="Top" FontSize="17"/>
+        <CheckBox x:Name="chb_domingo" Content="D" HorizontalAlignment="Left" Margin="698,250,0,0" VerticalAlignment="Top" FontSize="17"/>
+        <CheckBox x:Name="chb_viernes" Content="V" HorizontalAlignment="Left" Margin="838,223,0,0" VerticalAlignment="Top" FontSize="17"/>
+        <CheckBox x:Name="chb_miercoles" Content="Mi" HorizontalAlignment="Left" Margin="747,223,0,0" VerticalAlignment="Top" FontSize="17"/>
+        <TextBox x:Name="tb_buscar" HorizontalAlignment="Left" Margin="27,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" FontSize="17" TextChanged="bt_buscarCambio"/>
+        <TextBox x:Name="tb_cantante" HorizontalAlignment="Left" Margin="746,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" FontSize="17" TextChanged="tb_cantante_tch" LostFocus="tb_cantante_LF" SelectionChanged="tb_canntante_SCH"/>
+        <Label Content="Buscar..." HorizontalAlignment="Left" Margin="24,301,0,0" VerticalAlignment="Top" FontSize="10" IsEnabled="False">
+            <Label.Background>
+                <SolidColorBrush Opacity="1"/>
+            </Label.Background>
+        </Label>
+        <Label Content="Estatus:" HorizontalAlignment="Left" Margin="685,158,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
+        <TextBox x:Name="tb_estatus" HorizontalAlignment="Left" Margin="761,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="17" IsReadOnly="True"/>
+        <ListBox x:Name="lb_cantante" Margin="747,75,69,443" SelectionChanged="lb_cantante_seleccion" Visibility="Visible"/>
+        <Expander HorizontalAlignment="Left" Height="120" Header="Nota!" Margin="869,76,0,0" VerticalAlignment="Top" Width="151">
+            <Grid Background="#FFE5E5E5" Cursor="">
+                <TextBox HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Para autocompletar su busqueda presione tabulador" VerticalAlignment="Top" Width="78" Height="61" FontSize="9" TextAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" FontWeight="Bold"/>
+            </Grid>
+        </Expander>
+        <ListBox x:Name="lb_categorias" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="146,133,738,370" SelectionChanged="lb_categorias_SCH" Visibility="Visible"/>
+        <ListBox x:Name="lb_genero" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="384,137,375,269" SelectionChanged="lb_genero_SCH" Visibility="Visible"/>
+    </Grid>
+</Window>

@@ -68,6 +68,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MODELO\DAO\DAOCanciones.cs" />
+    <Compile Include="MODELO\DAO\DAOCantantes.cs" />
     <Compile Include="MODELO\DAO\DAOCategoria.cs" />
     <Compile Include="MODELO\DAO\DAODiasOperacion.cs" />
     <Compile Include="MODELO\DAO\DAOGenero.cs" />
@@ -82,9 +83,13 @@
     <Compile Include="MODELO\DAO\UsuarioDAO.cs" />
     <Compile Include="MODELO\DB\ConexionBD.cs" />
     <Compile Include="MODELO\POCO\Cancion.cs" />
+    <Compile Include="MODELO\POCO\Canciones.cs" />
+    <Compile Include="MODELO\POCO\Cantantes.cs" />
     <Compile Include="MODELO\POCO\Categoria.cs" />
+    <Compile Include="MODELO\POCO\Categorias.cs" />
     <Compile Include="MODELO\POCO\DiasOperacion.cs" />
     <Compile Include="MODELO\POCO\Genero.cs" />
+    <Compile Include="MODELO\POCO\Generos.cs" />
     <Compile Include="MODELO\POCO\LineaPatron.cs" />
     <Compile Include="MODELO\POCO\Locutor.cs" />
     <Compile Include="MODELO\POCO\MusicaDiaPatron.cs" />
@@ -96,6 +101,18 @@
     <Compile Include="MODELO\POCO\Usuario.cs" />
     <Compile Include="VISTAS\CRUDUsuario.xaml.cs">
       <DependentUpon>CRUDUsuario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VISTAS\GUI_Canciones.xaml.cs">
+      <DependentUpon>GUI_Canciones.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VISTAS\GUI_Cantantes.xaml.cs">
+      <DependentUpon>GUI_Cantantes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VISTAS\GUI_Categorias.xaml.cs">
+      <DependentUpon>GUI_Categorias.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VISTAS\GUI_Generos.xaml.cs">
+      <DependentUpon>GUI_Generos.xaml</DependentUpon>
     </Compile>
     <Compile Include="VISTAS\GUI_GestionarLocutores.xaml.cs">
       <DependentUpon>GUI_GestionarLocutores.xaml</DependentUpon>
@@ -158,6 +175,22 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="VISTAS\CRUDUsuario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VISTAS\GUI_Canciones.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VISTAS\GUI_Cantantes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VISTAS\GUI_Categorias.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VISTAS\GUI_Generos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

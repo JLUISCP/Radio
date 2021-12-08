@@ -30,12 +30,14 @@ namespace Radio.VISTAS
 
         private void btn_Canciones_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            GUI_Canciones canciones = new GUI_Canciones();
+            canciones.ShowDialog();
         }
 
         private void btn_Cantantes_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            GUI_Cantantes cantantes = new GUI_Cantantes();
+            cantantes.ShowDialog();
         }
 
         private void btn_Reportes_Click(object sender, RoutedEventArgs e)
