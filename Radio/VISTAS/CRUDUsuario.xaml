@@ -1,0 +1,29 @@
+﻿<Window x:Class="Radio.VISTAS.CRUDUsuario"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Radio.VISTAS"
+        mc:Ignorable="d"
+        Title="Login" Height="400" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Gestión Usuarios" Margin="33,10,594.6,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
+        <Button x:Name="btnLimpiar" Content="Limpiar " HorizontalAlignment="Left" Margin="245,328,0,0" VerticalAlignment="Top" Width="94" Click="btnLimpiar_Click"/>
+        <Button x:Name="btnModificar" Content="Modificar" HorizontalAlignment="Left" Margin="571,328,0,0" VerticalAlignment="Top" Width="94" Click="btnModificar_Click"/>
+        <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="690,328,0,0" VerticalAlignment="Top" Width="94" Click="btnEliminar_Click"/>
+        <Button x:Name="btnRegistrar" Content="Registrar" HorizontalAlignment="Left" Margin="447,328,0,0" VerticalAlignment="Top" Width="94" Click="btnRegistrar_Click"/>
+        <DataGrid x:Name="dg_Usuarios" HorizontalAlignment="Left" Height="311" Margin="33,49,0,0" VerticalAlignment="Top" Width="166" SelectionMode="Single" IsReadOnly="True" SelectionChanged="dg_Usuarios_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="166" Header="Nombre" Binding="{Binding Nombre}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Nombre" HorizontalAlignment="Left" Margin="233,49,0,0" VerticalAlignment="Top" />
+        <Label Content="Nombre usuario" HorizontalAlignment="Left" Margin="233,99,0,0" VerticalAlignment="Top" />
+        <Label Content="Contraseña" HorizontalAlignment="Left" Margin="233,149,0,0" VerticalAlignment="Top" />
+        <Label Content="Rol" HorizontalAlignment="Left" Margin="233,199,0,0" VerticalAlignment="Top" />
+        <TextBox x:Name="tbNombre" HorizontalAlignment="Left" Height="23" Margin="351,49,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
+        <TextBox x:Name="tbContraseña" HorizontalAlignment="Left" Height="23" Margin="351,149,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
+        <TextBox x:Name="tbNombreUsuario" HorizontalAlignment="Left" Height="23" Margin="351,99,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
+        <ComboBox x:Name="cbRol" HorizontalAlignment="Left" Margin="351,199,0,0" VerticalAlignment="Top" Width="200"/>
+    </Grid>
+</Window>

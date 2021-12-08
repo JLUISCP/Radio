@@ -1,0 +1,51 @@
+﻿<Window x:Class="Radio.VISTAS.MenuPrincipal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Radio.VISTAS"
+        mc:Ignorable="d"
+        Title="Home" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+    <Grid>
+        <Button x:Name="btn_Programas" HorizontalAlignment="Left" Margin="50,157,0,0" VerticalAlignment="Top" Width="120" Height="120" Click="btn_Programas_Click">
+            <StackPanel>
+                <Image Source="../RECURSOS/programas.png" Height="54" Width="71"/>
+                <TextBlock FontStretch="Condensed" LineStackingStrategy="BlockLineHeight" TextWrapping="Wrap" TextAlignment="Center">
+                    Programas
+                </TextBlock>
+            </StackPanel>
+        </Button>
+        <Button x:Name="btn_Programacion" HorizontalAlignment="Left" Margin="193,157,0,0" VerticalAlignment="Top" Width="120" Height="120" Click="btn_Programacion_Click">
+            <StackPanel>
+                <Image Source="../RECURSOS/programacion.png" Height="54" Width="71"/>
+                <TextBlock FontStretch="Condensed" LineStackingStrategy="BlockLineHeight" TextWrapping="Wrap" TextAlignment="Center" Width="90">
+                    Programacion
+                </TextBlock>
+            </StackPanel>
+        </Button>
+        <Button x:Name="btn_Cantantes" HorizontalAlignment="Left" Margin="485,157,0,0" VerticalAlignment="Top" Width="120" Height="120" Click="btn_Cantantes_Click">
+            <StackPanel>
+                <Image Source="../RECURSOS/cantantes.png" Height="54" Width="71"/>
+                <TextBlock FontStretch="Condensed" LineStackingStrategy="BlockLineHeight" TextWrapping="Wrap" TextAlignment="Center">
+                    Cantantes
+                </TextBlock>
+            </StackPanel>
+        </Button>
+        <Button x:Name="btn_Canciones" HorizontalAlignment="Left" Margin="340,157,0,0" VerticalAlignment="Top" Width="120" Height="120" Click="btn_Canciones_Click">
+            <StackPanel>
+                <Image Source="../RECURSOS/canciones.png" Height="54" Width="71"/>
+                <TextBlock FontStretch="Condensed" LineStackingStrategy="BlockLineHeight" TextWrapping="Wrap" TextAlignment="Center">
+                    Canciones
+                </TextBlock>
+            </StackPanel>
+        </Button>
+        <Button x:Name="btn_Reportes" Margin="630,157,50,0" VerticalAlignment="Top" Height="120" Click="btn_Reportes_Click">
+            <StackPanel>
+                <Image Source="../RECURSOS/reportes.png" Height="54" Width="71"/>
+                <TextBlock FontStretch="Condensed" LineStackingStrategy="BlockLineHeight" TextWrapping="Wrap" TextAlignment="Center">
+                    Reportes
+                </TextBlock>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Window>
