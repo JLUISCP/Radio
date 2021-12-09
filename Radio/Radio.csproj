@@ -132,6 +132,7 @@
     <Compile Include="VISTAS\GUI_VisualizarProgramas.xaml.cs">
       <DependentUpon>GUI_VisualizarProgramas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VISTAS\InterfaceActualizarProgramas.cs" />
     <Compile Include="VISTAS\InterfacePatronPrograma.cs" />
     <Compile Include="VISTAS\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>

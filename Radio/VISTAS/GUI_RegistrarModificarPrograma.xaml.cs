@@ -750,6 +750,13 @@ namespace Radio.VISTAS
                 if (resultado == 1)
                 {
                     MessageBox.Show("Se registro el programa '" + programaText + "'", "Registro");
+
+                    InterfaceActualizarProgramas actualizarTabla = this.Owner as InterfaceActualizarProgramas;
+                    if (actualizarTabla != null)
+                    {
+                        actualizarTabla.actualizar(true);
+                    }
+
                     this.Close();
                 }
                 else
@@ -859,6 +866,13 @@ namespace Radio.VISTAS
                 if (resultado == 1)
                 {
                     MessageBox.Show("Se actualizo el programa '" + programaText + "'", "Registro");
+
+                    InterfaceActualizarProgramas actualizarTabla = this.Owner as InterfaceActualizarProgramas;
+                    if (actualizarTabla != null)
+                    {
+                        actualizarTabla.actualizar(true);
+                    }
+
                     this.Close();
                 }
                 else

@@ -521,7 +521,7 @@ namespace Radio.MODELO.DAO
 
                                 if (listaCaciones[posicionListaMusica] != null)
                                 {
-                                    foreach (Cancion cancion in listaCaciones[dia.NumeroDia - 1])
+                                    foreach (Cancion cancion in listaCaciones[posicionListaMusica])
                                     {
                                         command = new SqlCommand(query, conn);
                                         command.Parameters.Add(new SqlParameter("@PROPAT_ID", programaPatron.IdprogramaPatron));
