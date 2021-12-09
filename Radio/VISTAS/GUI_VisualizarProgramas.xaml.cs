@@ -19,10 +19,9 @@ namespace Radio.VISTAS
     /// <summary>
     /// Lógica de interacción para GUI_VisualizarProgramas.xaml
     /// </summary>
-    public partial class GUI_VisualizarProgramas : Window, InterfaceActualizarProgramas
+    public partial class GUI_VisualizarProgramas : Window
     {
         List<Programa> programas;
-        private Boolean seActualiza = false;
 
         public GUI_VisualizarProgramas()
         {
@@ -53,7 +52,6 @@ namespace Radio.VISTAS
         private void btnRegistrarPrograma(object sender, RoutedEventArgs e)
         {
             GUI_RegistrarModificarPrograma registrarModificarPrograma = new GUI_RegistrarModificarPrograma(true, null);
-            registrarModificarPrograma.Owner = this;
             registrarModificarPrograma.ShowDialog();
 
         }
@@ -66,7 +64,6 @@ namespace Radio.VISTAS
                 Programa programaEditar = programas[programaSeleccionada];
 
                 GUI_RegistrarModificarPrograma registrarModificarPrograma = new GUI_RegistrarModificarPrograma(false, programaEditar);
-                registrarModificarPrograma.Owner = this;
                 registrarModificarPrograma.ShowDialog();
             }
             else
@@ -122,12 +119,5 @@ namespace Radio.VISTAS
             dg_Programas.AutoGenerateColumns = false;
         }
 
-        public void actualizar(bool seActualiza)
-        {
-            if (seActualiza)
-            {
-                cargarProgramas();
-            }
-        }
     }
 }

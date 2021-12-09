@@ -261,5 +261,43 @@ namespace Radio.MODELO.DAO
             }
             return valor;
         }
+
+        public static bool encontrarCategoria(String nombre)
+        {
+            bool existeCategoria = false;
+            SqlConnection conexion = ConexionBD.getConnection();
+            if (conexion != null)
+            {
+                try
+                {
+                    SqlCommand comando;
+                    SqlDataReader lectorDatos;
+                    String consulta = "SELECT * FROM mus_categorias " +
+                        "WHERE CAT_NOMBRE = @Nombre;";
+                    comando = new SqlCommand(consulta, conexion);
+                    comando.Parameters.AddWithValue("@Nombre", nombre);
+                    lectorDatos = comando.ExecuteReader();
+                    if (lectorDatos.Read())
+                    {
+                        existeCategoria = true;
+                    }
+                    lectorDatos.Close();
+                    comando.Dispose();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return existeCategoria;
+                }
+                finally
+                {
+                    if (conexion != null)
+                    {
+                        conexion.Close();
+                    }
+                }
+            }
+            return existeCategoria;
+        }
     }
 }

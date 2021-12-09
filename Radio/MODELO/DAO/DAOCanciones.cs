@@ -587,5 +587,869 @@ namespace Radio.MODELO.DAO
             }
             return valor;
         }
+
+        public static List<Cancion> consultarCancionesFiltradas(String nombreCantante, String nombreCategoria, String nombreGenero,
+            String orden, String estado)
+        {
+            List<Cancion> canciones = new List<Cancion>();
+            if ((nombreCantante != "") && (nombreCategoria != "") && (nombreGenero != ""))
+            {
+                canciones = usarTodosFiltros(nombreCantante, nombreCategoria, nombreGenero, orden, estado);
+            }
+            else if ((nombreGenero != "") && (nombreCategoria != ""))
+            {
+                canciones = filtrarPorGeneroYCategoria(nombreCategoria, nombreGenero, orden, estado);
+            }
+            else if ((nombreCategoria != "") && (nombreCantante != ""))
+            {
+                canciones = filtrarPorCantanteYCategoria(nombreCantante, nombreCategoria, orden, estado);
+            }
+            else if ((nombreGenero != "") && (nombreCantante != ""))
+            {
+                canciones = filtrarPorCantanteYGenero(nombreGenero, nombreCantante, orden, estado);
+            }
+            else if (nombreGenero != "")
+            {
+                canciones = filtrarPorGenero(nombreGenero, orden, estado);
+            }
+            else if (nombreCantante != "")
+            {
+                canciones = filtrarPorCantante(nombreCantante, orden, estado);
+            }
+            else if (nombreCategoria != "")
+            {
+                canciones = filtrarPorCategoria(nombreCategoria, orden, estado);
+            }
+            return canciones;
+        }
+
+        public static List<Cancion> usarTodosFiltros(String nombreCantante, String nombreCategoria, String nombreGenero,
+            String orden, String estado)
+        {
+            List<Cancion> canciones = new List<Cancion>();
+            SqlConnection conexion = ConexionBD.getConnection();
+            String consulta = "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c " +
+                    "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID " +
+                    "WHERE c2.CNT_NOMBRE = @NombreCantante) " +
+                    "AS a, " +
+                "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                    "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID " +
+                    "WHERE g.GNR_NOMBRE = @NombreGenero) " +
+                    "AS g " +
+                    "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID AND c2.CAT_NOMBRE = @NombreCategoria AND c.CAN_ESTATUS = @Estado " +
+                "ORDER BY " +
+                    "CASE @Orden " +
+                        "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                        "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                        "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                    "END;";
+            if ((nombreCategoria == "*") && (nombreGenero == "*") && (estado == "Todas"))
+            {
+                consulta = obtenerConsultaConCantanteSinEstado();
+            }
+            else if ((nombreCategoria == "*") && (nombreGenero == "*"))
+            {
+                consulta = obtenerConsultaConCantanteYEstado();
+            }
+            else if ((nombreGenero == "*") && (estado == "Todas"))
+            {
+                consulta = obtenerConsultaConCantanteYCategoria();
+            }
+            else if ((nombreCategoria == "*") && (estado == "Todas"))
+            {
+                consulta = obtenerConsultaConCantanteYGeneroSinEstado();
+            }
+            else if (nombreGenero == "*")
+            {
+                consulta = obtenerConsultaConCantanteCategoriaYEstado();
+            }
+            else if (nombreCategoria == "*")
+            {
+                consulta = obtenerConsultaConCantanteGeneroYEstado();
+            }
+            else if (estado == "Todas")
+            {
+                consulta = "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                    "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID " +
+                        "WHERE c2.CNT_NOMBRE = @NombreCantante) " +
+                        "AS a, " +
+                    "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                        "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID WHERE g.GNR_NOMBRE = @NombreGenero) " +
+                        "AS g " +
+                        "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                    "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID AND c2.CAT_NOMBRE = @NombreCategoria " +
+                    "ORDER BY " +
+                        "CASE @Orden " +
+                            "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                            "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                            "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                        "END;";
+            }
+            estado = convertirEstadoAClausula(estado);
+            if (conexion != null)
+            {
+                try
+                {
+                    SqlCommand comando;
+                    SqlDataReader lectorDatos;
+                    comando = new SqlCommand(consulta, conexion);
+                    comando.Parameters.AddWithValue("@NombreCantante", nombreCantante);
+                    if (nombreGenero != "*")
+                    {
+                        comando.Parameters.AddWithValue("@NombreGenero", nombreGenero);
+                    }
+                    if (nombreCategoria != "*")
+                    {
+                        comando.Parameters.AddWithValue("@NombreCategoria", nombreCategoria);
+                    }
+                    comando.Parameters.AddWithValue("@Orden", orden);
+                    if (estado != "Todas")
+                    {
+                        comando.Parameters.AddWithValue("@Estado", estado);
+                    }
+                    lectorDatos = comando.ExecuteReader();
+                    while (lectorDatos.Read())
+                    {
+                        canciones.Add(crearCancion(lectorDatos));
+                    }
+                    lectorDatos.Close();
+                    comando.Dispose();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return canciones = null;
+                }
+                finally
+                {
+                    if (conexion != null)
+                    {
+                        conexion.Close();
+                    }
+                }
+            }
+            return canciones;
+        }
+
+        public static List<Cancion> filtrarPorGeneroYCategoria(String nombreCategoria, String nombreGenero,
+            String orden, String estado)
+        {
+            List<Cancion> canciones = new List<Cancion>();
+            SqlConnection conexion = ConexionBD.getConnection();
+            String consulta = "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c " +
+                    "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID) " +
+                    "AS a, " +
+                "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                    "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID " +
+                    "WHERE g.GNR_NOMBRE = @NombreGenero) " +
+                    "AS g " +
+                    "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID AND c2.CAT_NOMBRE = @NombreCategoria AND c.CAN_ESTATUS = @Estado " +
+                "ORDER BY " +
+                    "CASE @Orden " +
+                        "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                        "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                        "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                    "END;";
+            if ((nombreGenero == "*") && (nombreCategoria == "*") && (estado == "Todas"))
+            {
+                consulta = obtenerConsultaSinFiltrosYEstado();
+            }
+            else if ((nombreCategoria == "*") && (nombreGenero == "*"))
+            {
+                consulta = obtenerConsultaSinFiltrosConEstado();
+            }
+            else if ((nombreCategoria == "*") && (estado == "Todas"))
+            {
+                consulta = obtenerConsultaConGeneroSinEstado();
+            }
+            else if ((nombreGenero == "*") && (estado == "Todas"))
+            {
+                consulta = obtenerConsultaConCategoriaSinEstado();
+            }
+            else if (nombreGenero == "*")
+            {
+                consulta = obtenerConsultaConCategoriaYEstado();
+            }
+            else if (nombreCategoria == "*")
+            {
+                consulta = obtenerConsultaConGeneroYEstado();
+            }
+            else if (estado == "Todas")
+            {
+                consulta = "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                    "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c " +
+                        "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID) " +
+                        "AS a, " +
+                    "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                        "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID " +
+                        "WHERE g.GNR_NOMBRE = @NombreGenero) " +
+                        "AS g " +
+                        "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                    "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID AND c2.CAT_NOMBRE = @NombreCategoria " +
+                    "ORDER BY " +
+                        "CASE @Orden " +
+                            "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                            "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                            "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                        "END;";
+            }
+            estado = convertirEstadoAClausula(estado);
+            if (conexion != null)
+            {
+                try
+                {
+                    SqlCommand comando;
+                    SqlDataReader lectorDatos;
+                    comando = new SqlCommand(consulta, conexion);
+                    if (nombreCategoria != "*")
+                    {
+                        comando.Parameters.AddWithValue("@NombreCategoria", nombreCategoria);
+                    }
+                    if (nombreGenero != "*")
+                    {
+                        comando.Parameters.AddWithValue("@NombreGenero", nombreGenero);
+                    }
+                    comando.Parameters.AddWithValue("@Orden", orden);
+                    if (estado != "Todas")
+                    {
+                        comando.Parameters.AddWithValue("@Estado", estado);
+                    }
+                    lectorDatos = comando.ExecuteReader();
+                    while (lectorDatos.Read())
+                    {
+                        canciones.Add(crearCancion(lectorDatos));
+                    }
+                    lectorDatos.Close();
+                    comando.Dispose();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return canciones = null;
+                }
+                finally
+                {
+                    if (conexion != null)
+                    {
+                        conexion.Close();
+                    }
+                }
+            }
+            return canciones;
+        }
+
+        public static List<Cancion> filtrarPorCantanteYCategoria(String nombreCantante, String nombreCategoria, String orden, String estado)
+        {
+            List<Cancion> canciones = new List<Cancion>();
+            SqlConnection conexion = ConexionBD.getConnection();
+            String consulta = obtenerConsultaConCantanteCategoriaYEstado();
+            if ((nombreCategoria == "*") && (estado == "Todas"))
+            {
+                consulta = obtenerConsultaConCantanteSinEstado();
+            }
+            else if (nombreCategoria == "*")
+            {
+                consulta = obtenerConsultaConCantanteYEstado();
+            }
+            else if (estado == "Todas")
+            {
+                consulta = obtenerConsultaConCantanteYCategoria();
+            }
+            estado = convertirEstadoAClausula(estado);
+            if (conexion != null)
+            {
+                try
+                {
+                    SqlCommand comando;
+                    SqlDataReader lectorDatos;
+                    comando = new SqlCommand(consulta, conexion);
+                    comando.Parameters.AddWithValue("@NombreCantante", nombreCantante);
+                    if (nombreCategoria != "*")
+                    {
+                        comando.Parameters.AddWithValue("@NombreCategoria", nombreCategoria);
+                    }
+                    comando.Parameters.AddWithValue("@Orden", orden);
+                    if (estado != "Todas")
+                    {
+                        comando.Parameters.AddWithValue("@Estado", estado);
+                    }
+                    lectorDatos = comando.ExecuteReader();
+                    while (lectorDatos.Read())
+                    {
+                        canciones.Add(crearCancion(lectorDatos));
+                    }
+                    lectorDatos.Close();
+                    comando.Dispose();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return canciones = null;
+                }
+                finally
+                {
+                    if (conexion != null)
+                    {
+                        conexion.Close();
+                    }
+                }
+            }
+            return canciones;
+        }
+
+        private static String obtenerConsultaConCantanteCategoriaYEstado()
+        {
+            return "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c " +
+                    "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID " +
+                    "WHERE c2.CNT_NOMBRE = @NombreCantante) " +
+                    "AS a, " +
+                "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                    "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID) " +
+                    "AS g " +
+                    "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID AND c2.CAT_NOMBRE = @NombreCategoria AND c.CAN_ESTATUS = @Estado " +
+                "ORDER BY " +
+                    "CASE @Orden " +
+                        "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                        "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                        "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                    "END;";
+        }
+
+        private static String obtenerConsultaConCantanteYCategoria()
+        {
+            return "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c " +
+                    "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID " +
+                    "WHERE c2.CNT_NOMBRE = @NombreCantante) " +
+                    "AS a, " +
+                "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                    "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID) " +
+                    "AS g " +
+                    "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID AND c2.CAT_NOMBRE = @NombreCategoria " +
+                "ORDER BY " +
+                    "CASE @Orden " +
+                        "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                        "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                        "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                    "END;";
+        }
+
+        public static List<Cancion> filtrarPorCantanteYGenero(String nombreGenero, String nombreCantante, String orden, String estado)
+        {
+            List<Cancion> canciones = new List<Cancion>();
+            SqlConnection conexion = ConexionBD.getConnection();
+            String consulta = obtenerConsultaConCantanteGeneroYEstado();
+            if ((nombreGenero == "*") && (estado == "Todas"))
+            {
+                consulta = obtenerConsultaConCantanteSinEstado();
+            }
+            else if (nombreGenero == "*")
+            {
+                consulta = obtenerConsultaConCantanteYEstado();
+            }
+            else if (estado == "Todas")
+            {
+                consulta = obtenerConsultaConCantanteYGeneroSinEstado();
+            }
+            estado = convertirEstadoAClausula(estado);
+            if (conexion != null)
+            {
+                try
+                {
+                    SqlCommand comando;
+                    SqlDataReader lectorDatos;
+                    comando = new SqlCommand(consulta, conexion);
+                    comando.Parameters.AddWithValue("@NombreCantante", nombreCantante);
+                    if (nombreGenero != "*")
+                    {
+                        comando.Parameters.AddWithValue("@NombreGenero", nombreGenero);
+                    }
+                    comando.Parameters.AddWithValue("@Orden", orden);
+                    if (estado != "Todas")
+                    {
+                        comando.Parameters.AddWithValue("@Estado", estado);
+                    }
+                    lectorDatos = comando.ExecuteReader();
+                    while (lectorDatos.Read())
+                    {
+                        canciones.Add(crearCancion(lectorDatos));
+                    }
+                    lectorDatos.Close();
+                    comando.Dispose();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return canciones = null;
+                }
+                finally
+                {
+                    if (conexion != null)
+                    {
+                        conexion.Close();
+                    }
+                }
+            }
+            return canciones;
+        }
+
+        private static String obtenerConsultaConCantanteGeneroYEstado()
+        {
+            return "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c " +
+                    "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID " +
+                    "WHERE c2.CNT_NOMBRE = @NombreCantante) " +
+                    "AS a, " +
+                "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                    "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID " +
+                    "WHERE g.GNR_NOMBRE = @NombreGenero) " +
+                    "AS g " +
+                    "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID AND c.CAN_ESTATUS = @Estado " +
+                "ORDER BY " +
+                    "CASE @Orden " +
+                        "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                        "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                        "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                    "END;";
+        }
+
+        private static String obtenerConsultaConCantanteYGeneroSinEstado()
+        {
+            return "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c " +
+                    "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID " +
+                    "WHERE c2.CNT_NOMBRE = @NombreCantante) " +
+                    "AS a, " +
+                "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                    "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID " +
+                    "WHERE g.GNR_NOMBRE = @NombreGenero) " +
+                    "AS g " +
+                    "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID " +
+                "ORDER BY " +
+                    "CASE @Orden " +
+                        "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                        "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                        "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                    "END;";
+        }
+
+        public static List<Cancion> filtrarPorGenero(String nombreGenero, String orden, String estado)
+        {
+            List<Cancion> canciones = new List<Cancion>();
+            SqlConnection conexion = ConexionBD.getConnection();
+            String consulta = obtenerConsultaConGeneroYEstado();
+            if ((nombreGenero == "*") && (estado == "Todas"))
+            {
+                consulta = obtenerConsultaSinFiltrosYEstado();
+            }
+            else if (nombreGenero == "*")
+            {
+                consulta = obtenerConsultaSinFiltrosConEstado();
+            }
+            else if (estado == "Todas")
+            {
+                consulta = obtenerConsultaConGeneroSinEstado();
+            }
+            estado = convertirEstadoAClausula(estado);
+            if (conexion != null)
+            {
+                try
+                {
+                    SqlCommand comando;
+                    SqlDataReader lectorDatos;
+                    comando = new SqlCommand(consulta, conexion);
+                    if (nombreGenero != "*")
+                    {
+                        comando.Parameters.AddWithValue("@NombreGenero", nombreGenero);
+                    }
+                    comando.Parameters.AddWithValue("@Orden", orden);
+                    if (estado != "Todas")
+                    {
+                        comando.Parameters.AddWithValue("@Estado", estado);
+                    }
+                    lectorDatos = comando.ExecuteReader();
+                    while (lectorDatos.Read())
+                    {
+                        canciones.Add(crearCancion(lectorDatos));
+                    }
+                    lectorDatos.Close();
+                    comando.Dispose();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return canciones = null;
+                }
+                finally
+                {
+                    if (conexion != null)
+                    {
+                        conexion.Close();
+                    }
+                }
+            }
+            return canciones;
+        }
+
+        private static String obtenerConsultaConGeneroYEstado()
+        {
+            return "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c " +
+                    "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID) " +
+                    "AS a, " +
+                "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                    "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID " +
+                    "WHERE g.GNR_NOMBRE = @NombreGenero) " +
+                    "AS g " +
+                    "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID AND c.CAN_ESTATUS = @Estado " +
+                "ORDER BY " +
+                    "CASE @Orden " +
+                        "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                        "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                        "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                    "END;";
+        }
+
+        private static String obtenerConsultaConGeneroSinEstado()
+        {
+            return "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c " +
+                    "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID) " +
+                    "AS a, " +
+                "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                    "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID " +
+                    "WHERE g.GNR_NOMBRE = @NombreGenero) " +
+                    "AS g " +
+                    "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID " +
+                "ORDER BY " +
+                    "CASE @Orden " +
+                        "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                        "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                        "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                    "END;";
+        }
+
+        public static List<Cancion> filtrarPorCantante(String nombreCantante, String orden, String estado)
+        {
+            List<Cancion> canciones = new List<Cancion>();
+            SqlConnection conexion = ConexionBD.getConnection();
+            String consulta = obtenerConsultaConCantanteYEstado();
+            if (estado == "Todas")
+            {
+                consulta = obtenerConsultaConCantanteSinEstado();
+            }
+            estado = convertirEstadoAClausula(estado);
+            if (conexion != null)
+            {
+                try
+                {
+                    SqlCommand comando;
+                    SqlDataReader lectorDatos;
+                    comando = new SqlCommand(consulta, conexion);
+                    comando.Parameters.AddWithValue("@NombreCantante", nombreCantante);
+                    comando.Parameters.AddWithValue("@Orden", orden);
+                    if (estado != "Todas")
+                    {
+                        comando.Parameters.AddWithValue("@Estado", estado);
+                    }
+                    lectorDatos = comando.ExecuteReader();
+                    while (lectorDatos.Read())
+                    {
+                        canciones.Add(crearCancion(lectorDatos));
+                    }
+                    lectorDatos.Close();
+                    comando.Dispose();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return canciones = null;
+                }
+                finally
+                {
+                    if (conexion != null)
+                    {
+                        conexion.Close();
+                    }
+                }
+            }
+            return canciones;
+        }
+
+        private static String obtenerConsultaConCantanteYEstado()
+        {
+            return "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c " +
+                    "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID " +
+                    "WHERE c2.CNT_NOMBRE = @NombreCantante) " +
+                    "AS a, " +
+                "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                    "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID) " +
+                    "AS g " +
+                    "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID AND c.CAN_ESTATUS = @Estado " +
+                "ORDER BY " +
+                    "CASE @Orden " +
+                        "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                        "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                        "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                    "END;";
+        }
+
+        private static String obtenerConsultaConCantanteSinEstado()
+        {
+            return "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c " +
+                    "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID " +
+                    "WHERE c2.CNT_NOMBRE = @NombreCantante) " +
+                    "AS a, " +
+                "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                    "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID) " +
+                    "AS g " +
+                    "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID " +
+                "ORDER BY " +
+                    "CASE @Orden " +
+                        "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                        "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                        "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                    "END;";
+        }
+
+        public static List<Cancion> filtrarPorCategoria(String nombreCategoria, String orden, String estado)
+        {
+            List<Cancion> canciones = new List<Cancion>();
+            SqlConnection conexion = ConexionBD.getConnection();
+            String consulta = obtenerConsultaConCategoriaYEstado();
+            if ((nombreCategoria == "*") && (estado == "Todas"))
+            {
+                consulta = obtenerConsultaSinFiltrosYEstado();
+            }
+            else if (nombreCategoria == "*")
+            {
+                consulta = obtenerConsultaSinFiltrosConEstado();
+            }
+            else if (estado == "Todas")
+            {
+                consulta = obtenerConsultaConCategoriaSinEstado();
+            }
+            estado = convertirEstadoAClausula(estado);
+            if (conexion != null)
+            {
+                try
+                {
+                    SqlCommand comando;
+                    SqlDataReader lectorDatos;
+                    comando = new SqlCommand(consulta, conexion);
+                    if (nombreCategoria != "*")
+                    {
+                        comando.Parameters.AddWithValue("@NombreCategoria", nombreCategoria);
+                    }
+                    comando.Parameters.AddWithValue("@Orden", orden);
+                    if (estado != "Todas")
+                    {
+                        comando.Parameters.AddWithValue("@Estado", estado);
+                    }
+                    lectorDatos = comando.ExecuteReader();
+                    while (lectorDatos.Read())
+                    {
+                        canciones.Add(crearCancion(lectorDatos));
+                    }
+                    lectorDatos.Close();
+                    comando.Dispose();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return canciones = null;
+                }
+                finally
+                {
+                    if (conexion != null)
+                    {
+                        conexion.Close();
+                    }
+                }
+            }
+            return canciones;
+        }
+
+        private static String obtenerConsultaConCategoriaYEstado()
+        {
+            return "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c " +
+                    "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID) " +
+                    "AS a, " +
+                "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                    "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID) " +
+                    "AS g " +
+                    "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID AND c2.CAT_NOMBRE = @NombreCategoria AND c.CAN_ESTATUS = @Estado " +
+                "ORDER BY " +
+                    "CASE @Orden " +
+                        "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                        "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                        "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                    "END;";
+        }
+
+        private static String obtenerConsultaSinFiltrosYEstado()
+        {
+            return "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c " +
+                    "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID) " +
+                    "AS a, " +
+                "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                    "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID) " +
+                    "AS g " +
+                    "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID " +
+                "ORDER BY " +
+                    "CASE @Orden " +
+                        "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                        "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                        "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                    "END;";
+        }
+
+        private static String obtenerConsultaSinFiltrosConEstado()
+        {
+            return "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c " +
+                    "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID) " +
+                    "AS a, " +
+                "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                    "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID) " +
+                    "AS g " +
+                    "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID AND c.CAN_ESTATUS = @Estado " +
+                "ORDER BY " +
+                    "CASE @Orden " +
+                        "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                        "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                        "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                    "END;";
+        }
+
+        private static String obtenerConsultaConCategoriaSinEstado()
+        {
+            return "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, a.CNT_NOMBRE, g.GNR_NOMBRE, c2.CAT_NOMBRE FROM mus_canciones c, " +
+                "(SELECT c.CAN_ID, c2.CNT_NOMBRE FROM mus_canciones c " +
+                    "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID) " +
+                    "AS a, " +
+                "(SELECT c.CAN_ID, g.GNR_NOMBRE, c.CAT_ID FROM mus_canciones c " +
+                    "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID) " +
+                    "AS g " +
+                    "LEFT JOIN mus_categorias c2 ON g.CAT_ID = c2.CAT_ID " +
+                "WHERE c.CAN_ID = a.CAN_ID AND c.CAN_ID = g.CAN_ID AND c2.CAT_NOMBRE = @NombreCategoria " +
+                "ORDER BY " +
+                    "CASE @Orden " +
+                        "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                        "WHEN 'Cantante' THEN a.CNT_NOMBRE " +
+                        "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                    "END;";
+        }
+
+        private static Cancion crearCancion(SqlDataReader lectorDatos)
+        {
+            Cancion cancion = new Cancion();
+            cancion.CancionID = (!lectorDatos.IsDBNull(0)) ? (int) lectorDatos.GetInt64(0) : 0;
+            cancion.Clave = (!lectorDatos.IsDBNull(1)) ? lectorDatos.GetString(1) : "";
+            cancion.Titulo = (!lectorDatos.IsDBNull(2)) ? lectorDatos.GetString(2) : "";
+            cancion.NombreCantante = (!lectorDatos.IsDBNull(3)) ? lectorDatos.GetString(3) : "";
+            cancion.NombreGenero = (!lectorDatos.IsDBNull(4)) ? lectorDatos.GetString(4) : "";
+            cancion.NombreCategoria = (!lectorDatos.IsDBNull(5)) ? lectorDatos.GetString(5) : "";
+            return cancion;
+        }
+
+        public static List<Cancion> consultarCancionesNoFiltradas(String orden, String estado)
+        {
+            List<Cancion> canciones = new List<Cancion>();
+            SqlConnection conexion = ConexionBD.getConnection();
+            String consulta = "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, c2.CNT_NOMBRE FROM mus_canciones c " +
+                    "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID " +
+                "WHERE c.CAN_ESTATUS = @Estado " +
+                "ORDER BY " +
+                    "CASE @Orden " +
+                        "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                        "WHEN 'Cantante' THEN c2.CNT_NOMBRE " +
+                        "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                    "END;";
+            if (estado == "Todas")
+            {
+                consulta = "SELECT c.CAN_ID, c.CAN_CLAVE, c.CAN_TITULO, c2.CNT_NOMBRE FROM mus_canciones c " +
+                        "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID " +
+                    "ORDER BY " +
+                        "CASE @Orden " +
+                            "WHEN 'Clave' THEN c.CAN_CLAVE " +
+                            "WHEN 'Cantante' THEN c2.CNT_NOMBRE " +
+                            "WHEN 'Titulo' THEN c.CAN_TITULO " +
+                        "END;";
+            }
+            estado = convertirEstadoAClausula(estado);
+            if (conexion != null)
+            {
+                try
+                {
+                    SqlCommand comando;
+                    SqlDataReader lectorDatos;
+                    comando = new SqlCommand(consulta, conexion);
+                    comando.Parameters.AddWithValue("@Orden", orden);
+                    if (estado != "Todas")
+                    {
+                        comando.Parameters.AddWithValue("@Estado", estado);
+                    }
+                    lectorDatos = comando.ExecuteReader();
+                    while (lectorDatos.Read())
+                    {
+                        Cancion cancion = new Cancion();
+                        cancion.CancionID = (!lectorDatos.IsDBNull(0)) ? (int) lectorDatos.GetInt64(0) : 0;
+                        cancion.Clave = (!lectorDatos.IsDBNull(1)) ? lectorDatos.GetString(1) : "";
+                        cancion.Titulo = (!lectorDatos.IsDBNull(2)) ? lectorDatos.GetString(2) : "";
+                        cancion.NombreCantante = (!lectorDatos.IsDBNull(3)) ? lectorDatos.GetString(3) : "";
+                        canciones.Add(cancion);
+                    }
+                    lectorDatos.Close();
+                    comando.Dispose();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return canciones = null;
+                }
+                finally
+                {
+                    if (conexion != null)
+                    {
+                        conexion.Close();
+                    }
+                }
+            }
+            return canciones;
+        }
+
+        private static String convertirEstadoAClausula(String estado)
+        {
+            if (estado == "Activas")
+            {
+                estado = "1";
+            }
+            else if (estado == "Inactivas")
+            {
+                estado = "0";
+            }
+            return estado;
+        }
     }
 }

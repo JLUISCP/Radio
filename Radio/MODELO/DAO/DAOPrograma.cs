@@ -521,7 +521,7 @@ namespace Radio.MODELO.DAO
 
                                 if (listaCaciones[posicionListaMusica] != null)
                                 {
-                                    foreach (Cancion cancion in listaCaciones[posicionListaMusica])
+                                    foreach (Cancion cancion in listaCaciones[dia.NumeroDia - 1])
                                     {
                                         command = new SqlCommand(query, conn);
                                         command.Parameters.Add(new SqlParameter("@PROPAT_ID", programaPatron.IdprogramaPatron));
@@ -549,6 +549,103 @@ namespace Radio.MODELO.DAO
             }
 
             return resultadoQuery;
+        }
+
+        public static List<CancionDelDia> consultarCancionesDelPrograma(int idPrograma)
+        {
+            List<CancionDelDia> canciones = new List<CancionDelDia>();
+            SqlConnection conexion = ConexionBD.getConnection();
+            if (conexion != null)
+            {
+                try
+                {
+                    String consulta = "SELECT DISTINCT mdp.MUSDIAPAT_ID, a.CAN_TITULO, a.CAN_CLAVE, a.CNT_NOMBRE, a.CAT_NOMBRE, a.GNR_NOMBRE, b.HOR_DIASSEMANA, b.PAD_NOMBRE FROM mus_programapatron pp " +
+                            "LEFT JOIN mus_musicadiapatron mdp ON pp.PROPAT_ID = mdp.PROPAT_ID, " +
+                        "(SELECT c.CAN_ID, c.CAN_TITULO,  c.CAN_CLAVE, c2.CNT_NOMBRE, a.CAT_NOMBRE, a.GNR_NOMBRE FROM mus_musicadiapatron m " +
+                            "LEFT JOIN mus_canciones c ON m.CAN_ID = c.CAN_ID " +
+                            "LEFT JOIN mus_cantantes c2 ON c.CNT_ID = c2.CNT_ID, " +
+                            "(SELECT c.CAN_ID, c2.CAT_NOMBRE, g.GNR_NOMBRE FROM mus_canciones c " +
+                                "LEFT JOIN mus_categorias c2 ON c.CAT_ID = c2.CAT_ID " +
+                                "LEFT JOIN mus_generos g ON c.GNR_ID = g.GNR_ID) " +
+                                "AS a " +
+                            "WHERE m.CAN_ID = a.CAN_ID) " +
+                            "AS a, " +
+                        "(SELECT h.HOR_ID, h.HOR_NUMCANCIONES, h.HOR_DIASSEMANA, h.PAT_ID, p.PAD_NOMBRE FROM mus_horarios h " +
+                            "LEFT JOIN mus_patrones p ON h.PAT_ID = p.PAT_ID " +
+                            "WHERE PRO_ID = @IdPrograma AND HOR_ESTATUS = 1) " +
+                            "AS b " +
+                        "WHERE mdp.CAN_ID = a.CAN_ID AND pp.HOR_ID = b.HOR_ID AND pp.PAT_ID = b.PAT_ID " +
+                        "ORDER BY b.HOR_DIASSEMANA;";
+                    SqlCommand comando;
+                    SqlDataReader lectorDatos;
+                    comando = new SqlCommand(consulta, conexion);
+                    comando.Parameters.AddWithValue("@IdPrograma", idPrograma);
+                    lectorDatos = comando.ExecuteReader();
+                    while (lectorDatos.Read())
+                    {
+                        CancionDelDia cancionDelDia = new CancionDelDia();
+                        cancionDelDia.IdCancionDelDia = (!lectorDatos.IsDBNull(0)) ? lectorDatos.GetInt32(0) : 0;
+                        cancionDelDia.TituloCancion = (!lectorDatos.IsDBNull(1)) ? lectorDatos.GetString(1) : "";
+                        cancionDelDia.ClaveCancion = (!lectorDatos.IsDBNull(2)) ? lectorDatos.GetString(2) : "";
+                        cancionDelDia.NombreCantante = (!lectorDatos.IsDBNull(3)) ? lectorDatos.GetString(3) : "";
+                        cancionDelDia.NombreCategoria = (!lectorDatos.IsDBNull(4)) ? lectorDatos.GetString(4) : "";
+                        cancionDelDia.NombreGenero = (!lectorDatos.IsDBNull(5)) ? lectorDatos.GetString(5) : "";
+                        if (!lectorDatos.IsDBNull(6))
+                        {
+                            int diaCosultada = lectorDatos.GetInt32(6);
+                            if (diaCosultada == 1)
+                            {
+                                cancionDelDia.DiaDeSemana = "Lunes";
+                            }
+                            else if (diaCosultada == 2)
+                            {
+                                cancionDelDia.DiaDeSemana = "Martes";
+                            }
+                            else if (diaCosultada == 3)
+                            {
+                                cancionDelDia.DiaDeSemana = "Miercóles";
+                            }
+                            else if (diaCosultada == 4)
+                            {
+                                cancionDelDia.DiaDeSemana = "Jueves";
+                            }
+                            else if (diaCosultada == 5)
+                            {
+                                cancionDelDia.DiaDeSemana = "Viernes";
+                            }
+                            else if (diaCosultada == 6)
+                            {
+                                cancionDelDia.DiaDeSemana = "Sábado";
+                            }
+                            else if (diaCosultada == 7)
+                            {
+                                cancionDelDia.DiaDeSemana = "Domingo";
+                            }
+                            else
+                            {
+                                cancionDelDia.DiaDeSemana = "";
+                            }
+                        }
+                        cancionDelDia.NombrePatron = (!lectorDatos.IsDBNull(7)) ? lectorDatos.GetString(7) : "";
+                        canciones.Add(cancionDelDia);
+                    }
+                    lectorDatos.Close();
+                    comando.Dispose();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return canciones = null;
+                }
+                finally
+                {
+                    if (conexion != null)
+                    {
+                        conexion.Close();
+                    }
+                }
+            }
+            return canciones;
         }
     }
 }

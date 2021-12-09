@@ -22,7 +22,7 @@ namespace Radio.MODELO.POCO
         private String comentario;
         private String observacion;
         private int idCantante;
-         private String nombreCantante;
+        private String nombreCantante;
         private int idCategoria;
         private String nombreCategoria;
         private int idGenero;
