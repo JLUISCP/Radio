@@ -21,5 +21,10 @@ namespace Radio.MODELO.POCO
         public DateTime CNT_FECHAMODIFICACION1 { get => CNT_FECHAMODIFICACION; set => CNT_FECHAMODIFICACION = value; }
         public DateTime CNT_FECHAALTA1 { get => CNT_FECHAALTA; set => CNT_FECHAALTA = value; }
         public string CNT_ESTATUS1 { get => CNT_ESTATUS; set => CNT_ESTATUS = value; }
+
+        public override string ToString()
+        {
+            return CNT_NOMBRE;
+        }
     }
 }

@@ -43,5 +43,10 @@ namespace Radio.MODELO.POCO
         public string CAT_NOMBRE1 { get => CAT_NOMBRE; set => CAT_NOMBRE = value; }
         public long GNR_ID1 { get => GNR_ID; set => GNR_ID = value; }
         public string GNR_NOMBRE1 { get => GNR_NOMBRE; set => GNR_NOMBRE = value; }
+
+        public override string ToString()
+        {
+            return CAN_TITULO;
+        }
     }
 }

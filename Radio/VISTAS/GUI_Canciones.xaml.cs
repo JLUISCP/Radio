@@ -513,7 +513,6 @@ namespace Radio.VISTAS
                 {
                     MessageBox.Show("Cantante no existente, favor de verificar", "Operación");
                     tb_cantante.Text = "";
-                    MessageBox.Show(autolist[0].CNT_NOMBRE1);
                 }
                 else
                 {

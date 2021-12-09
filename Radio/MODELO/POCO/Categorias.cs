@@ -13,5 +13,10 @@ namespace Radio.MODELO.POCO
 
         public long CAT_ID1 { get => CAT_ID; set => CAT_ID = value; }
         public string CAT_NOMBRE1 { get => CAT_NOMBRE; set => CAT_NOMBRE = value; }
+
+        public override string ToString()
+        {
+            return CAT_NOMBRE;
+        }
     }
 }
