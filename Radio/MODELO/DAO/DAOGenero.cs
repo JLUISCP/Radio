@@ -274,5 +274,43 @@ namespace Radio.MODELO.DAO
 
             return valor;
         }
+
+        public static bool encontrarGenero(String nombre)
+        {
+            bool existeGenero = false;
+            SqlConnection conexion = ConexionBD.getConnection();
+            if (conexion != null)
+            {
+                try
+                {
+                    SqlCommand comando;
+                    SqlDataReader lectorDatos;
+                    String consulta = "SELECT * FROM mus_generos " +
+                        "WHERE GNR_NOMBRE = @Nombre;";
+                    comando = new SqlCommand(consulta, conexion);
+                    comando.Parameters.AddWithValue("@Nombre", nombre);
+                    lectorDatos = comando.ExecuteReader();
+                    if (lectorDatos.Read())
+                    {
+                        existeGenero = true;
+                    }
+                    lectorDatos.Close();
+                    comando.Dispose();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return existeGenero;
+                }
+                finally
+                {
+                    if (conexion != null)
+                    {
+                        conexion.Close();
+                    }
+                }
+            }
+            return existeGenero;
+        }
     }
 }

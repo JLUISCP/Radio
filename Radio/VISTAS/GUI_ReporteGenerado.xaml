@@ -1,0 +1,20 @@
+﻿<Window x:Class="Radio.VISTAS.GUI_ReporteGenerado"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Radio.VISTAS"
+        mc:Ignorable="d"
+        Title="GUI_ReporteGenerado" Height="700" Width="741.645">
+    <Grid>
+        <Label x:Name="lb_Titulo" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <Label x:Name="lb_Guid" Content="w" HorizontalAlignment="Left" Margin="42,595,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lb_Fecha" Content="Fecha: " HorizontalAlignment="Left" Margin="513,590,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label x:Name="lb_Paginas" Content="Página 1 de 1" HorizontalAlignment="Left" Margin="566,629,0,0" VerticalAlignment="Top" 
+               FontSize="16"/>
+        <Label x:Name="lb_Contenido" HorizontalAlignment="Center" Margin="0,57,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <DataGrid x:Name="dg_Registros" HorizontalAlignment="Left" Margin="42,122,0,0" VerticalAlignment="Top" SelectionMode="Single" 
+                  IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" 
+                  CanUserSortColumns="False" ColumnWidth="*" Width="630" Height="463" AutoGenerateColumns="False"/>
+    </Grid>
+</Window>

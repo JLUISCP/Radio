@@ -67,11 +67,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="INTERFAZ\IObservador.cs" />
     <Compile Include="MODELO\DAO\DAOCanciones.cs" />
     <Compile Include="MODELO\DAO\DAOCantantes.cs" />
     <Compile Include="MODELO\DAO\DAOCategoria.cs" />
+    <Compile Include="MODELO\DAO\DAOContadorDeCancion.cs" />
     <Compile Include="MODELO\DAO\DAODiasOperacion.cs" />
     <Compile Include="MODELO\DAO\DAOGenero.cs" />
+    <Compile Include="MODELO\DAO\DAOHorarioDelPrograma.cs" />
     <Compile Include="MODELO\DAO\DAOLineaPatron.cs" />
     <Compile Include="MODELO\DAO\DAOLocutor.cs" />
     <Compile Include="MODELO\DAO\DAOPatron.cs" />
@@ -83,13 +86,16 @@
     <Compile Include="MODELO\DAO\UsuarioDAO.cs" />
     <Compile Include="MODELO\DB\ConexionBD.cs" />
     <Compile Include="MODELO\POCO\Cancion.cs" />
+    <Compile Include="MODELO\POCO\CancionDelDia.cs" />
     <Compile Include="MODELO\POCO\Canciones.cs" />
     <Compile Include="MODELO\POCO\Cantantes.cs" />
     <Compile Include="MODELO\POCO\Categoria.cs" />
     <Compile Include="MODELO\POCO\Categorias.cs" />
+    <Compile Include="MODELO\POCO\ContadorDeCancion.cs" />
     <Compile Include="MODELO\POCO\DiasOperacion.cs" />
     <Compile Include="MODELO\POCO\Genero.cs" />
     <Compile Include="MODELO\POCO\Generos.cs" />
+    <Compile Include="MODELO\POCO\HorarioDelPrograma.cs" />
     <Compile Include="MODELO\POCO\LineaPatron.cs" />
     <Compile Include="MODELO\POCO\Locutor.cs" />
     <Compile Include="MODELO\POCO\MusicaDiaPatron.cs" />
@@ -117,11 +123,23 @@
     <Compile Include="VISTAS\GUI_GestionarLocutores.xaml.cs">
       <DependentUpon>GUI_GestionarLocutores.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VISTAS\GUI_ListaDeRegistros.xaml.cs">
+      <DependentUpon>GUI_ListaDeRegistros.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VISTAS\GUI_ProgramaVisualizado.xaml.cs">
+      <DependentUpon>GUI_ProgramaVisualizado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VISTAS\GUI_RegistrarModificarPatron.xaml.cs">
       <DependentUpon>GUI_RegistrarModificarPatron.xaml</DependentUpon>
     </Compile>
     <Compile Include="VISTAS\GUI_RegistrarModificarPrograma.xaml.cs">
       <DependentUpon>GUI_RegistrarModificarPrograma.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VISTAS\GUI_ReporteDeCanciones.xaml.cs">
+      <DependentUpon>GUI_ReporteDeCanciones.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VISTAS\GUI_ReporteGenerado.xaml.cs">
+      <DependentUpon>GUI_ReporteGenerado.xaml</DependentUpon>
     </Compile>
     <Compile Include="VISTAS\GUI_VisualizarPatron.xaml.cs">
       <DependentUpon>GUI_VisualizarPatron.xaml</DependentUpon>
@@ -132,7 +150,6 @@
     <Compile Include="VISTAS\GUI_VisualizarProgramas.xaml.cs">
       <DependentUpon>GUI_VisualizarProgramas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VISTAS\InterfaceActualizarProgramas.cs" />
     <Compile Include="VISTAS\InterfacePatronPrograma.cs" />
     <Compile Include="VISTAS\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -199,11 +216,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VISTAS\GUI_ListaDeRegistros.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VISTAS\GUI_ProgramaVisualizado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VISTAS\GUI_RegistrarModificarPatron.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VISTAS\GUI_RegistrarModificarPrograma.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VISTAS\GUI_ReporteDeCanciones.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VISTAS\GUI_ReporteGenerado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

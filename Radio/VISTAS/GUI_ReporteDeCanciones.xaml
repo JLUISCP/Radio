@@ -1,0 +1,38 @@
+﻿<Window x:Class="Radio.VISTAS.GUI_ReporteDeCanciones"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Radio.VISTAS"
+        mc:Ignorable="d"
+        Title="GUI_ReporteDeCanciones" Height="450" Width="800">
+    <Grid>
+        <CheckBox x:Name="chb_Genero" Content="Género: " HorizontalAlignment="Left" Margin="31,86,0,0" VerticalAlignment="Top" FontSize="18" Unchecked="clicGeneroCheckBox" Checked="clicGeneroCheckBox" />
+        <CheckBox x:Name="chb_Categoria" Content="Categoría: " HorizontalAlignment="Left" Margin="28,146,0,0" VerticalAlignment="Top" FontSize="18" Unchecked="clicCategoriaCheckBox" Checked="clicCategoriaCheckBox"/>
+        <CheckBox x:Name="chb_Cantante" Content="Cantante: " HorizontalAlignment="Left" Margin="28,208,0,0" VerticalAlignment="Top" FontSize="18" Checked="clicCantanteCheckBox" Unchecked="clicCantanteCheckBox"/>
+        <TextBox x:Name="tb_Genero" HorizontalAlignment="Left" Margin="141,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="187" FontSize="18"/>
+        <TextBox x:Name="tb_Categoria" HorizontalAlignment="Left" Margin="141,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="187" FontSize="18"/>
+        <TextBox x:Name="tb_Cantante" HorizontalAlignment="Left" Margin="141,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="187" FontSize="18"/>
+        <CheckBox x:Name="chb_NoUtilizadas" Content="No utilizadas" HorizontalAlignment="Left" Margin="28,292,0,0" VerticalAlignment="Top" FontSize="18" Checked="clicNoUtilizadas" Unchecked="clicNoUtilizadas"/>
+        <Button x:Name="btn_Reestablecer" Content="Reestablecer" HorizontalAlignment="Left" Margin="31,367,0,0" VerticalAlignment="Top" FontSize="18" Click="clicReestablecer"/>
+        <Button x:Name="btn_GenerarReporte" Content="Generar reporte" HorizontalAlignment="Left" Margin="591,367,0,0" VerticalAlignment="Top" FontSize="18" Background="#FF2AB936" Foreground="#FFFDFDFD" Click="clicGenerarReporte"/>
+        <Button x:Name="btn_MasGeneros" Content="Más generos" HorizontalAlignment="Left" Margin="333,84,0,0" VerticalAlignment="Top" FontSize="18" Click="clicMasGeneros"/>
+        <Button x:Name="btn_MasCategorias" Content="Más categorías" HorizontalAlignment="Left" Margin="333,146,0,0" VerticalAlignment="Top" FontSize="18" Click="clicMasCategorias"/>
+        <Button x:Name="btn_MasCantantes" Content="Más cantantes" HorizontalAlignment="Left" Margin="333,210,0,0" VerticalAlignment="Top" FontSize="18" Click="clicMasCantantes"/>
+        <GroupBox x:Name="gb_Orden" Header="Orden" Margin="639,86,40.6,181" FontSize="24" Foreground="#FF1447BD">
+            <StackPanel>
+                <RadioButton x:Name="rb_Clave" Content="Clave" FontSize="18" GroupName="gn_Orden" Checked="seleccionarOrdenDeCanciones"/>
+                <RadioButton x:Name="rb_Cantante" Content="Cantante" FontSize="18" GroupName="gn_Orden" Checked="seleccionarOrdenDeCanciones"/>
+                <RadioButton x:Name="rb_Titulo" Content="Titulo" FontSize="18" GroupName="gn_Orden" Checked="seleccionarOrdenDeCanciones"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox x:Name="gb_Estado" Header="Estado" Margin="502,86,177.6,183" FontSize="24" Foreground="#FF1447BD">
+            <StackPanel>
+                <RadioButton x:Name="rb_Todas" Content="Todas" FontSize="18" GroupName="gn_Estado" Checked="seleccionarEstadoDeCanciones"/>
+                <RadioButton x:Name="rb_Activas" Content="Activas" FontSize="18" GroupName="gn_Estado" Checked="seleccionarEstadoDeCanciones"/>
+                <RadioButton x:Name="rb_Inactivas" Content="Inactivas" FontSize="18" GroupName="gn_Estado" Checked="seleccionarEstadoDeCanciones"/>
+            </StackPanel>
+        </GroupBox>
+        <Label x:Name="lb_Titulo" Content="Filtro de canciones" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
+    </Grid>
+</Window>
