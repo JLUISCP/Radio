@@ -112,5 +112,10 @@ namespace Radio.VISTAS
             GUI_ReporteDeCanciones reporte = new GUI_ReporteDeCanciones();
             reporte.ShowDialog();
         }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
