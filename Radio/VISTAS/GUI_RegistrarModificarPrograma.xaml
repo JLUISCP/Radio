@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Radio.VISTAS"
         mc:Ignorable="d"
-        Title="GUI_RegistrarModificarPrograma" Height="690" Width="1045" ResizeMode="NoResize">
+        Title="GUI_RegistrarModificarPrograma" Height="690" Width="1045" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Image x:Name="imgLogo"  HorizontalAlignment="Left" Height="144" Margin="35,69,0,0" VerticalAlignment="Top" Width="170" Source="logo.png" />
         <Label Content="Clave: " HorizontalAlignment="Left" Margin="251,96,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>

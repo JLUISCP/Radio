@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Radio.VISTAS"
         mc:Ignorable="d"
-        Title="Login" Height="400" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+        Title="Login" Height="400" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Label Content="Gestión Usuarios" Margin="33,10,594.6,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
         <Button x:Name="btnLimpiar" Content="Limpiar " HorizontalAlignment="Left" Margin="245,328,0,0" VerticalAlignment="Top" Width="94" Click="btnLimpiar_Click"/>

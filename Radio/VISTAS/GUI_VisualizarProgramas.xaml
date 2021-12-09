@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Radio.VISTAS"
         mc:Ignorable="d"
-        Title="GUI_VisualizarProgramas" Height="550" Width="1030" ResizeMode="NoResize">
+        Title="GUI_VisualizarProgramas" Height="550" Width="1030" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Label Content="Lista de Programas " HorizontalAlignment="Left" Margin="40,32,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
         <Label Content="Buscar: " HorizontalAlignment="Left" Margin="763,70,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold" Height="32"/>

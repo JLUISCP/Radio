@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Radio.VISTAS"
         mc:Ignorable="d"
-        Title="GUI_GestionarLocutores" Height="300" Width="664" ResizeMode="NoResize">
+        Title="GUI_GestionarLocutores" Height="300" Width="664" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Label  Content="Locutores: " HorizontalAlignment="Left" Margin="24,20,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
         <Label  Content="Locutor Seleccionado: " HorizontalAlignment="Left" Margin="433,20,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>

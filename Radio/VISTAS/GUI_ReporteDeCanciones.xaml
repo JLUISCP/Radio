@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Radio.VISTAS"
         mc:Ignorable="d"
-        Title="GUI_ReporteDeCanciones" Height="450" Width="800">
+        Title="GUI_ReporteDeCanciones" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <CheckBox x:Name="chb_Genero" Content="Género: " HorizontalAlignment="Left" Margin="31,86,0,0" VerticalAlignment="Top" FontSize="18" Unchecked="clicGeneroCheckBox" Checked="clicGeneroCheckBox" />
         <CheckBox x:Name="chb_Categoria" Content="Categoría: " HorizontalAlignment="Left" Margin="28,146,0,0" VerticalAlignment="Top" FontSize="18" Unchecked="clicCategoriaCheckBox" Checked="clicCategoriaCheckBox"/>

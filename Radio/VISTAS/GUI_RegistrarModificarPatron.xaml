@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Radio.VISTAS"
         mc:Ignorable="d"
-        Title="Patrone" Height="556" Width="793" ResizeMode="NoResize">
+        Title="Patrone" Height="556" Width="793" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Margin="0,0,4,0">
         <Label Content="Nombre: " HorizontalAlignment="Left" Margin="211,69,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold" Height="32"/>
         <TextBox x:Name="tbNombre" HorizontalAlignment="Left" Margin="299,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" FontSize="17" FontWeight="Bold"/>

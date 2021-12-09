@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Radio.VISTAS"
         mc:Ignorable="d"
-        Title="GUI_Categorias" Height="400" Width="800" ResizeMode="NoResize">
+        Title="GUI_Categorias" Height="400" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Label Content="Nombre:" HorizontalAlignment="Left" Margin="78,57,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
         <TextBox x:Name="tb_nombreCategoria" HorizontalAlignment="Left" Margin="163,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="374" FontSize="17" SelectionChanged="tb_cambio"/>
@@ -15,9 +15,9 @@
             </DataGrid.Columns>
         </DataGrid>
         <TextBox x:Name="tb_Buscar" HorizontalAlignment="Left" Margin="10,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" FontSize="17" TextChanged="bt_Buscar"/>
-        <Button x:Name="bt_modificarCategoria" Content="Modificar" HorizontalAlignment="Left" Margin="674,132,0,0" VerticalAlignment="Top" Width="100" FontSize="17" Background="#FFFF6600" Foreground="White" Click="bt_modificarCategoria_Click"/>
+        <Button x:Name="bt_modificarCategoria" Content="Modificar" HorizontalAlignment="Left" Margin="674,132,0,0" VerticalAlignment="Top" Width="116" FontSize="17" Background="#FFFF6600" Foreground="White" Click="bt_modificarCategoria_Click"/>
         <Button x:Name="bt_registrarCategoria" Content="Registrar" HorizontalAlignment="Left" Margin="569,132,0,0" VerticalAlignment="Top" Width="100" FontSize="17" Background="#FF009900" Foreground="White" Click="bt_registrarCategoria_Click"/>
-        <Button x:Name="bt_Deshacer" Content="Deshacer" HorizontalAlignment="Left" Margin="464,132,0,0" VerticalAlignment="Top" Background="#FF7FF67F" Width="100" Height="27" FontSize="17" FontWeight="Bold" Click="bt_Deshacer_Click"/>
-        <Label Content="Buscar..." HorizontalAlignment="Left" Margin="5,114,0,0" VerticalAlignment="Top" FontSize="10" IsEnabled="False"/>
+        <Button x:Name="bt_Deshacer" Content="Deshacer" HorizontalAlignment="Left" Margin="452,132,0,0" VerticalAlignment="Top" Background="#FF7FF67F" Width="112" Height="32" FontSize="17" FontWeight="Bold" Click="bt_Deshacer_Click" Foreground="#DD000000" Cursor="Hand"/>
+        <Label Content="Buscar..." HorizontalAlignment="Left" Margin="5,111,0,0" VerticalAlignment="Top" FontSize="11"/>
     </Grid>
 </Window>

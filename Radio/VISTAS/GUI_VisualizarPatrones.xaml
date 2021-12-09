@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Radio.VISTAS"
         mc:Ignorable="d"
-        Title="Lista de Patrones" Height="550" Width="568" ResizeMode="NoResize">
+        Title="Lista de Patrones" Height="550" Width="568" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Margin="0,0,4,0">
         <Label Content="Buscar: " HorizontalAlignment="Left" Margin="295,74,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold" Height="32"/>
         <TextBox x:Name="tbBuscador" HorizontalAlignment="Left" Margin="368,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" FontSize="17" FontWeight="Bold"/>

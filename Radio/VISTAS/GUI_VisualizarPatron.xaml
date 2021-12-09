@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Radio.VISTAS"
         mc:Ignorable="d"
-        Title="Patrón Programa" Height="496" Width="1008" ResizeMode="NoResize">
+        Title="Patrón Programa" Height="496" Width="1008" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Button x:Name="btnModificarPatron" Content="Modificar Patrón" HorizontalAlignment="Left" Margin="29,379,0,0" VerticalAlignment="Top" FontSize="17" Width="161" Background="#2E86C1" Foreground="White" Height="27" RenderTransformOrigin="0.217,0.593" Visibility="Hidden"/>
         <TextBox x:Name="tbNumeroCanciones" HorizontalAlignment="Left" Margin="764,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" FontSize="15" FontWeight="Bold"/>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Radio.VISTAS"
         mc:Ignorable="d"
-        Title="GUI_ProgramaVisualizado" Height="450" Width="800">
+        Title="GUI_ProgramaVisualizado" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <DataGrid x:Name="dg_Canciones" HorizontalAlignment="Left" Height="353" Margin="256,40,0,0" VerticalAlignment="Top" Width="506"
                   SelectionMode="Single" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" 

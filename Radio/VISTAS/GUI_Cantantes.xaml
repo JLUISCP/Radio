@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Radio.VISTAS"
         mc:Ignorable="d"
-        Title="GUI_Cantantes" Height="560" Width="1030" ResizeMode="NoResize">
+        Title="GUI_Cantantes" Height="560" Width="1030" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Label Content="Datos Generales: Cantantes" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Roboto" Opacity="0.5" Height="23" Width="177" FontSize="13" FontWeight="Bold"/>
         <Label Content="Nombre:" HorizontalAlignment="Left" Margin="79,74,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
@@ -13,9 +13,9 @@
         <Label Content="Fecha Alta:" HorizontalAlignment="Left" Margin="88,154,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
         <Label Content="Fecha Modificación: " HorizontalAlignment="Left" Margin="494,156,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
         <CheckBox x:Name="cb_botonActivo" Content="Cantante Activo" HorizontalAlignment="Left" Margin="420,223,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold" IsChecked="True"/>
-        <Button x:Name="bt_limpiarCampos" Content="Limpiar Campos" HorizontalAlignment="Left" Margin="757,266,0,0" VerticalAlignment="Top" FontSize="17" Width="180" Background="#FF7FF67F" Click="bt_limpiarCampos_Click"/>
-        <Button x:Name="bt_registrar" Content="Registrar" HorizontalAlignment="Left" Margin="692,303,0,0" VerticalAlignment="Top" FontSize="17" Width="100" Background="#FF009900" Foreground="White" Click="bt_registrar_Click"/>
-        <Button x:Name="bt_modificar" Content="Modificar" HorizontalAlignment="Left" Margin="797,303,0,0" VerticalAlignment="Top" FontSize="17" Width="100" Background="#FFFF6600" Foreground="White" Click="bt_modificar_Click"/>
+        <Button x:Name="bt_limpiarCampos" Content="Limpiar Campos" HorizontalAlignment="Left" Margin="747,266,0,0" VerticalAlignment="Top" FontSize="17" Width="180" Background="#FF7FF67F" Click="bt_limpiarCampos_Click"/>
+        <Button x:Name="bt_registrar" Content="Registrar" HorizontalAlignment="Left" Margin="682,303,0,0" VerticalAlignment="Top" FontSize="17" Width="100" Background="#FF009900" Foreground="White" Click="bt_registrar_Click"/>
+        <Button x:Name="bt_modificar" Content="Modificar" HorizontalAlignment="Left" Margin="787,303,0,0" VerticalAlignment="Top" FontSize="17" Width="110" Background="#FFFF6600" Foreground="White" Click="bt_modificar_Click"/>
         <Button x:Name="bt_eliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="902,303,0,0" VerticalAlignment="Top" FontSize="17" Width="100" Background="#FFCC0000" Foreground="White" Click="bt_eliminar_Click"/>
         <TextBox x:Name="tb_buscar" HorizontalAlignment="Left" Margin="28,304,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" FontSize="17" TextChanged="bt_buscarCambio"/>
         <DataGrid x:Name="dg_Cantantes" Margin="28,335,28,31" FontWeight="Bold" FontSize="18" IsReadOnly="True" SelectionChanged="dg_cantantesSeleccion">
@@ -38,6 +38,6 @@
                 <SolidColorBrush Color="Black" Opacity="100000"/>
             </DatePicker.Foreground>
         </DatePicker>
-        <Label Content="Buscar..." HorizontalAlignment="Left" Margin="24,283,0,0" VerticalAlignment="Top" IsEnabled="False" FontSize="10"/>
+        <Label Content="Buscar..." HorizontalAlignment="Left" Margin="22,282,0,0" VerticalAlignment="Top" FontSize="11"/>
     </Grid>
 </Window>
